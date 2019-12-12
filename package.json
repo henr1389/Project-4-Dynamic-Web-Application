@@ -1,0 +1,33 @@
+{
+    "name": "dynamic-webserver",
+    "version": "1.0.0",
+    "description": "RESTful Web Server using Node JS",
+    "author": {
+        "name": "Brandon Henrickson",
+        "email": "henr1389@stthomas.edu"
+    },
+    "contributors": [
+        {
+            "name": "Gwen Clark",
+            "email": "gwen.clark010@gmail.com"
+        },
+        {
+            "name": "Salmaan Saiyed",
+            "email": "salmaan.saiyed@gmail.com"
+        },
+        {
+            "name": "Brandon Henrickson",
+            "email": "henr1389@stthomas.edu"
+        }
+    ],
+    "main": "server.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/henr1389/Project-3---RESTful-Server"
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "sqlite3": "^4.1.0"
+    }
+}
