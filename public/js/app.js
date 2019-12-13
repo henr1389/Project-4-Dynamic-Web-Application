@@ -11,17 +11,16 @@ function init() {
             showTable: true
         },
         methods: {
-            changeLatLng: function() {
+            changeLatLong: function() {
                 leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
             },
             getCrimeData: function() {
-                // By default, include crimes from 10/01/2019 to 10/31/2019
-                let incidents = [];
+                var incidents = [];
                 $.getJSON('http://localhost:8000/incidents?limit=10&start_date=2019-10-01&end_date=2019-10-31')
                     .then(data => {
-                        for(let i in data){
-                            let incident = data[i];
-                            let neighborhood_name, incident_type;
+                        for(var i in data){
+                            var incident = data[i];
+                            var neighborhood_name, incident_type;
                             $.when(
                                 $.getJSON('http://localhost:8000/neighborhoods?id='+incident.neighborhood_number, (data) => {
                                     neighborhood_name = data['N'+incident.neighborhood_number];
@@ -45,11 +44,10 @@ function init() {
     leafletMapInit();
 }
 
-let leafletMap;
+var leafletMap;
 function leafletMapInit(){
-    // console.log(app);
-    let stPaulLatLng = [app.mapLatitude, app.mapLongitude]; // Latitude and longitude of St. Paul
-    leafletMap = L.map('map', {minZoom: 11, maxZoom: 18, maxBounds: [[44.875822, -92.984848],[44.99564, -93.229122]], center: stPaulLatLng, zoom: 13}); // mouse click-and-drag and scroll wheel interaction available by default
+    var latLong = [app.mapLatitude, app.mapLongitude]; // Latitude and longitude of St. Paul
+    leafletMap = L.map('map', {minZoom: 11, maxZoom: 18, maxBounds: [[44.875822, -92.984848],[44.99564, -93.229122]], center: latLong, zoom: 13});
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -120,16 +118,14 @@ function onMapClick(e) {
 }
 
 
-
 function addPolygon(){
-    // Polygon for St. Paul
     let polygon = L.polygon([
-        [44.987922, -93.207506],
-        [44.991685, -93.005289],
-        [44.891321, -93.004774],
-        [44.919406, -93.050779],
-        [44.919649, -93.128541],
-        [44.887429, -93.173517],
-        [44.909195, -93.202013]
+        [44.98792, -93.207506],
+        [44.99168, -93.005289],
+        [44.89132, -93.004774],
+        [44.91940, -93.050779],
+        [44.91964, -93.128541],
+        [44.88742, -93.173517],
+        [44.90919, -93.202013]
     ]).addTo(leafletMap);
 }
