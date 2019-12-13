@@ -19,6 +19,12 @@ function init() {
             open: true,
         },
         methods: {
+            getLocationFromLatLong: function() {
+                $.getJSON('http://nominatim.openstreetmap.org/reverse?format=json&lat=' + this.mapLatitude + '&lon='+ this.mapLongitude, function(data) {
+                    var items = [];
+                    console.log(data);
+                });
+            },
             changeLatLong: function() {
                 leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
             },
