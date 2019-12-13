@@ -7,8 +7,16 @@ function init() {
         data: {
             mapLatitude: 44.953,
             mapLongitude: -93.09,
-            incidents: [],
-            showTable: true
+            incidents: {},
+            neighborhoods: {},
+            codes: {},
+            showTable: true,
+            address: "",
+            visibleNeighborhoods: [],
+            mapNeighborhoods: [],
+            nMarkers: [],
+            iMarkers: [],
+            open: true,
         },
         methods: {
             changeLatLong: function() {
@@ -37,11 +45,30 @@ function init() {
                             })
                         }
                     })
+            },
+            neighborhoodName: function(neighborhoodNumber) {
+                return this.neighborhoods[neighborhoodNumber].name
+            },
+            incidentType: function(code) {
+                return this.codes[code]
+            },
+            updateNeighborhoods: function(){
+                this.mapNeighborhoods = [];
+                for(var i in this.neighborhoods) {
+                    var lat = this.neighborhoods[i].latitude;
+                    var long = this.neighborhoods[i].longitude;
+                    var boundary = map.getBounds();
+                    if (lat > bounds._southWest.lat && lng < bounds._northEast.lng && lat < bounds._northEast.lat && lng > bounds._southWest.lng) {
+                        this.neighborhoods.push(parseInt(i));
+                    }
+                }
             }
         }
     });
 
     leafletMapInit();
+    getCodes();
+    getIncidents();
 }
 
 var leafletMap;
@@ -101,6 +128,24 @@ function leafletMapInit(){
     L.marker([44.912, -93.177]).addTo(leafletMap)
        .bindPopup("Highland Park").openPopup();
     addPolygon();
+}
+
+function getIncidents(){
+    var path = 'http://localhost:8000/incidents?start_date=2019-10-01&end_date=2019-10-31';
+    $.getJSON(path)
+        .then(data => {
+            app.incidents = data;
+        });
+}
+
+function getCodes(){
+    var path = 'http://localhost:8000/codes';
+    $.getJSON(path)
+        .then(data => {
+            for(var i in data){
+                app.codes[i.substring(1)] = data[i];
+            }
+        });
 }
 
 function onMapChange(){
