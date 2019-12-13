@@ -8,6 +8,7 @@ var express = require('express')
 var sqlite3 = require('sqlite3')
 
 var db_filename = path.join(__dirname, 'db', 'stpaul_crime.sqlite3');
+var public_dir = path.join(__dirname, 'public');
 
 var app = express();
 var port = 8001;
@@ -24,7 +25,34 @@ var db = new sqlite3.Database(db_filename, (err) => {
 
 app.use(bodyParser.urlencoded({ extended:true }));
 
-// GET request handler for '/'
+
+app.get('/', (req, res) => {
+    fs.readFile(path.join(public_dir, "home.html"), (err, data) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.send(data.toString());
+        }
+    });
+});
+
+/*app.get('/about.html', (req, res) =>
+{
+    fs.readFile(path.join(public_dir, "about.html"), (err, data) =>
+    {
+        if(err)
+        {
+            console.log(err);
+        }
+        else
+        {
+            res.send(data.toString());
+        }
+    });
+});
+*/
+app.use(express.static(public_dir));
+
 app.get('/codes',(req,res) => {
 	db.all("SELECT * FROM Codes ORDER BY code", function(err ,rows){
 		var max;
