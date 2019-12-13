@@ -8,8 +8,15 @@ function init() {
             mapLatitude: 44.953,
             mapLongitude: -93.09,
             incidents: {},
+            neighborhoods: {},
+            codes: {},
             showTable: true,
-            neighborhoods: {}
+            address: "",
+            visibleNeighborhoods: [],
+            mapNeighborhoods: [],
+            nMarkers: [],
+            iMarkers: [],
+            open: true,
         },
         methods: {
             changeLatLong: function() {
@@ -38,18 +45,18 @@ function init() {
                             })
                         }
                     })
-            }
-            /*updateNeighborhoods: function(){
+            },
+            updateNeighborhoods: function(){
                 this.mapNeighborhoods = [];
                 for(var i in this.neighborhoods) {
+                    var lat = this.neighborhoods[i].latitude;
+                    var long = this.neighborhoods[i].longitude;
                     var boundary = map.getBounds();
-                    var lat = this.neighborhoods[n].latitude;
-                    var long = this.neighborhoods[n].longitude;
                     if (lat > bounds._southWest.lat && lng < bounds._northEast.lng && lat < bounds._northEast.lat && lng > bounds._southWest.lng) {
-                        this.neighborhoodsOnMap.push(parseInt(n));
+                        this.neighborhoods.push(parseInt(i));
                     }
                 }
-            }*/
+            }
         }
     });
 
