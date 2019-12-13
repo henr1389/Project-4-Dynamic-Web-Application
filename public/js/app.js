@@ -155,9 +155,9 @@ function getCodes(){
 }
 
 function onMapChange(){
-    let latLng = leafletMap.getCenter();
-    app.mapLatitude = latLng.lat;
-    app.mapLongitude = latLng.lng;
+    var latLong = leafletMap.getCenter();
+    app.mapLatitude = latLong.lat;
+    app.mapLongitude = latLong.lng;
 }
 
 let popup = L.popup();
