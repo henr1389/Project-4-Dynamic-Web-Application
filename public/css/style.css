@@ -30,8 +30,7 @@ html, body{
 
 .options{
     position: fixed;
-    top: 115px;
-    left: 750px;
+    left: 51%;
     z-index: 1000;
     background: #ffffff;
     padding: 5px;
