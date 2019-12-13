@@ -33,14 +33,16 @@
             <div id="map"></div>
             <div class="options">
                 <div>
-                    Latitude
+                    Lat
                     <input type="text" v-model="mapLatitude"/>
-                    Longitude
+                    Long
                     <input type="text" v-model="mapLongitude"/>
-                    <button type="button" @click="changeLatLng">Go</button>
-                    <button type="button" @click="getCrimeData">Get</button>
+                    <button type="button" @click="changeLatLong">Set Coordinates</button>
+                    <button type="button" @click="getCrimeData">Search</button>
                 </div>
                 <div>
+                    <input type="checkbox"></td>
+                    <input type="checkbox"></td>
                     <table v-if="showTable">
                         <thead>
                             <td>block</td>
