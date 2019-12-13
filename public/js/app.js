@@ -12,23 +12,20 @@ function init() {
             codes: {},
             showTable: true,
             address: "",
-            visibleNeighborhoods: [],
             mapNeighborhoods: [],
             nMarkers: [],
             iMarkers: [],
             open: true,
         },
         methods: {
-            changeCoordinates: function() {
-                leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
-            },
             getCrimeData: function() {
                 var incidents = [];
                 $.getJSON('http://localhost:8000/incidents?limit=10&start_date=2019-10-01&end_date=2019-10-31')
                     .then(data => {
                         for(var i in data){
                             var incident = data[i];
-                            var neighborhood_name, incident_type;
+                            var neighborhood_name;
+                            var incident_type;
                             $.when(
                                 $.getJSON('http://localhost:8000/neighborhoods?id='+incident.neighborhood_number, (data) => {
                                     neighborhood_name = data['N'+incident.neighborhood_number];
@@ -46,11 +43,14 @@ function init() {
                         }
                     })
             },
-            neighborhoodName: function(neighborhoodNumber) {
-                return this.neighborhoods[neighborhoodNumber].name
+            changeCoordinates: function() {
+                leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
             },
-            incidentType: function(code) {
-                return this.codes[code]
+            getNeighborhoodName: function(neighborhoodNumber) {
+                return this.neighborhoods[neighborhoodNumber].name;
+            },
+            getIncidentType: function(code) {
+                return this.codes[code];
             },
             updateNeighborhoods: function(){
                 this.mapNeighborhoods = [];
@@ -130,12 +130,12 @@ function leafletMapInit(){
     addPolygon();
 }
 function getAddress(){
-    $.getJSON('https://nominatim.openstreetmap.org/search?format=json&country=United States&state=MN&city=St. Paul&street=' + app.address)
+    $.getJSON('https://nominatim.openstreetmap.org/search?format=json&q=saint paul minnesota' + app.address)
         .then(data => {
             if(data.length > 0) {
                 app.latitude = data[0].lat;
                 app.longitude = data[0].lon;
-                map.panTo([app.latitude, app.longitude]);
+                leafletMap.panTo([app.latitude, app.longitude]);
             } else {
                 alert("Address '"+ app.address +"' not found")
             }
