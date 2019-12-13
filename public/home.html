@@ -35,8 +35,11 @@
                     <input type="text" v-model="mapLatitude"/>
                     Long
                     <input type="text" v-model="mapLongitude"/>
+                    Address
+                    <input type="text"/>
                     <button type="button" @click="changeLatLong();getLocationFromLatLong();">Set Coordinates</button>
-                    <button type="button" @click="getCrimeData">Search</button>
+                    <button type="button" @click="getCrimeData">Search Lat/Long</button>
+                    <button type="button">Search Address</button>
                 </div>
                 <div>
                     <input type="checkbox"></td>
