@@ -1,0 +1,73 @@
+html, body{
+    width: 100vw;
+    height: 100vh;
+}
+
+#map{
+    width: 50vw;
+    height: 50vh;
+    position: absolute;
+}
+
+#open-button{
+    position: absolute;
+    right: -30px;
+    background: white;
+    padding: 10px 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+}
+
+#loading{
+    position: fixed;
+    left: calc(100vw/2 - 100px);
+    top: calc(100vh/2 - 200px);
+    z-index: 20000;
+}
+
+.options{
+    position: fixed;
+    bottom: 115px;
+    left: 515px;
+    z-index: 1000;
+    background: #ffffff;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    max-height: calc(100vh - 30px);
+}
+
+input{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #80808082;
+    padding-left: 2px;
+    outline: none;
+}
+
+button{
+    outline: none;
+}
+
+#table{
+    max-height: 200vh;
+    overflow: scroll;
+}
+
+#table > * {
+    font-size: 0.75em;
+}
+
+td{
+    border: 2px solid blue;
+    padding: 0px 2px 0px 2px;
+}
+
+tr{
+    cursor: pointer;
+}
+
+tr:hover{
+    background: darkgrey;
+}
