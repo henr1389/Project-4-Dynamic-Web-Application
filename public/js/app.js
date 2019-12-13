@@ -46,6 +46,12 @@ function init() {
                         }
                     })
             },
+            neighborhoodName: function(neighborhoodNumber) {
+                return this.neighborhoods[neighborhoodNumber].name
+            },
+            incidentType: function(code) {
+                return this.codes[code]
+            },
             updateNeighborhoods: function(){
                 this.mapNeighborhoods = [];
                 for(var i in this.neighborhoods) {
@@ -61,6 +67,8 @@ function init() {
     });
 
     leafletMapInit();
+    getCodes();
+    getIncidents();
 }
 
 var leafletMap;
