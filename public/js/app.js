@@ -19,7 +19,7 @@ function init() {
             open: true,
         },
         methods: {
-            changeLatLong: function() {
+            changeCoordinates: function() {
                 leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
             },
             getCrimeData: function() {
