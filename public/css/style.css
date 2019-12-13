@@ -17,6 +17,7 @@ html, body{
     width: 50vw;
     height: 50vh;
     position: absolute;
+    top: 215px;
 }
 
 #open-button{
@@ -29,17 +30,9 @@ html, body{
     box-shadow: 0 1px 5px rgba(0,0,0,0.65);
 }
 
-#loading{
-    position: fixed;
-    left: calc(100vw/2 - 100px);
-    top: calc(100vh/2 - 200px);
-    z-index: 20000;
-}
-
 .options{
     position: fixed;
-    bottom: 115px;
-    left: 515px;
+    top: 115px;
     z-index: 1000;
     background: #ffffff;
     padding: 5px;
@@ -108,7 +101,6 @@ tr:hover{
   background-color: #ddd;
   color: black;
 }
-
 
 
 /* Style the footer */

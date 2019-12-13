@@ -6,7 +6,7 @@ function init() {
         el: "#app",
         data: {
             mapLatitude: 44.953,
-            mapLongitude: -93.2,
+            mapLongitude: -93.09,
             incidents: [],
             showTable: true
         },
@@ -73,10 +73,9 @@ function onMapChange(){
 
 let popup = L.popup();
 function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(leafletMap);
+    popup.setLatLng(e.latlng)
+    popup.setContent("You clicked the map at " + e.latlng.toString())
+    popup.openOn(leafletMap);
 }
 
 function addPolygon(){
