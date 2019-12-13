@@ -1,6 +1,6 @@
 html, body{
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -14,10 +14,9 @@ html, body{
 }
 
 #map{
-    width: 50vw;
-    height: 50vh;
+    width: 50%;
+    height: 75%;
     position: absolute;
-    top: 215px;
 }
 
 #open-button{
@@ -33,6 +32,7 @@ html, body{
 .options{
     position: fixed;
     top: 115px;
+    left: 750px;
     z-index: 1000;
     background: #ffffff;
     padding: 5px;
