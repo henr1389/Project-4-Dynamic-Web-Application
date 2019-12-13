@@ -35,7 +35,7 @@
                     <input type="text" v-model="mapLatitude"/>
                     Long
                     <input type="text" v-model="mapLongitude"/>
-                    <button type="button" @click="changeLatLong();">Set Coordinates</button>
+                    <button type="button" @click="changeLatLong();getLocationFromLatLong();">Set Coordinates</button>
                     <button type="button" @click="getCrimeData">Search</button>
                 </div>
                 <div>
