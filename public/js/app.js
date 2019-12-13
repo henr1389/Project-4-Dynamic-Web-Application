@@ -19,12 +19,6 @@ function init() {
             open: true,
         },
         methods: {
-            getLocationFromLatLong: function() {
-                $.getJSON('http://nominatim.openstreetmap.org/reverse?format=json&lat=' + this.mapLatitude + '&lon='+ this.mapLongitude, function(data) {
-                    var items = [];
-                    console.log(data);
-                });
-            },
             changeLatLong: function() {
                 leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
             },
@@ -64,7 +58,7 @@ function init() {
                     var lat = this.neighborhoods[i].latitude;
                     var long = this.neighborhoods[i].longitude;
                     var boundary = map.getBounds();
-                    if (lat > bounds._southWest.lat && lng < bounds._northEast.lng && lat < bounds._northEast.lat && lng > bounds._southWest.lng) {
+                    if (lat > bounds._southWest.lat && long < bounds._northEast.lng && lat < bounds._northEast.lat && long > bounds._southWest.long) {
                         this.neighborhoods.push(parseInt(i));
                     }
                 }
@@ -134,6 +128,18 @@ function leafletMapInit(){
     L.marker([44.912, -93.177]).addTo(leafletMap)
        .bindPopup("Highland Park").openPopup();
     addPolygon();
+}
+function getAddress(){
+    $.getJSON('https://nominatim.openstreetmap.org/search?format=json&country=United States&state=MN&city=St. Paul&street=' + app.address)
+        .then(data => {
+            if(data.length > 0) {
+                app.latitude = data[0].lat;
+                app.longitude = data[0].lon;
+                map.panTo([app.latitude, app.longitude]);
+            } else {
+                alert("Address '"+ app.address +"' not found")
+            }
+        });
 }
 
 function getIncidents(){

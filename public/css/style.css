@@ -51,12 +51,14 @@ button{
 }
 
 #table{
-    max-height: 200vh;
+    max-height: 200px;
     overflow: scroll;
+    
 }
 
 #table > * {
     font-size: 0.75em;
+    height: 10px;
 }
 
 td{
@@ -67,6 +69,7 @@ td{
 tr{
     cursor: pointer;
     font-size: 12px;
+    height: 10px;
 }
 
 tr:hover{
