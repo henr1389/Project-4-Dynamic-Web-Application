@@ -5,8 +5,8 @@ function init() {
     app = new Vue({
         el: "#app",
         data: {
-            mapLatitude: 44.94317442551431,
-            mapLongitude: -93.10775756835939,
+            mapLatitude: 44.953,
+            mapLongitude: -93.2,
             incidents: [],
             showTable: true
         },
@@ -49,7 +49,7 @@ let leafletMap;
 function leafletMapInit(){
     // console.log(app);
     let stPaulLatLng = [app.mapLatitude, app.mapLongitude]; // Latitude and longitude of St. Paul
-    leafletMap = L.map('map', {minZoom: 13, maxZoom: 17, maxBounds: [[44.875822, -92.984848],[44.99564, -93.229122]], center: stPaulLatLng, zoom: 13}); // mouse click-and-drag and scroll wheel interaction available by default
+    leafletMap = L.map('map', {minZoom: 11, maxZoom: 18, maxBounds: [[44.875822, -92.984848],[44.99564, -93.229122]], center: stPaulLatLng, zoom: 13}); // mouse click-and-drag and scroll wheel interaction available by default
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

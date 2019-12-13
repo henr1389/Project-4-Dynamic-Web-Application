@@ -21,43 +21,55 @@
 </head>
 
 <body onload="init()">
-    <div id="app">
-        <div id="map"></div>
-        <div class="options">
-            <div>
-                Latitude
-                <input type="text" v-model="mapLatitude"/>
-                Longitude
-                <input type="text" v-model="mapLongitude"/>
-                <button type="button" @click="changeLatLng">Go</button>
-                <button type="button" @click="getCrimeData">Get</button>
-            </div>
-            <div>
-                <table v-if="showTable">
-                    <thead>
-                        <td>block</td>
-                        <td>incident_type</td>
-                        <td>date</td>
-                        <td>incident</td>
-                        <td>neighborhood_name</td>
-                        <td>police_grid</td>
-                        <td>time</td>
-                    </thead>
-                    <tbody>
-                        <tr v-for="i in incidents">
-                            <td>{{ i.block }}</td>
-                            <td>{{ i.incident_type }}</td>
-                            <td>{{ i.date }}</td>
-                            <td>{{ i.incident }}</td>
-                            <td>{{ i.neighborhood_name }}</td>
-                            <td>{{ i.police_grid }}</td>
-                            <td>{{ i.time }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button type="button" @click="showTable = !showTable">show/hide table</button>
+    <div class="topnav">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+    </div>
+    <div class="content">
+        <h2>Saint Paul Crimes Search</h2>
+        <p>   
+        </p>
+        <div id="app">
+            <div id="map"></div>
+            <div class="options">
+                <div>
+                    Latitude
+                    <input type="text" v-model="mapLatitude"/>
+                    Longitude
+                    <input type="text" v-model="mapLongitude"/>
+                    <button type="button" @click="changeLatLng">Go</button>
+                    <button type="button" @click="getCrimeData">Get</button>
+                </div>
+                <div>
+                    <table v-if="showTable">
+                        <thead>
+                            <td>block</td>
+                            <td>incident_type</td>
+                            <td>date</td>
+                            <td>incident</td>
+                            <td>neighborhood_name</td>
+                            <td>police_grid</td>
+                            <td>time</td>
+                        </thead>
+                        <tbody>
+                            <tr v-for="i in incidents">
+                                <td>{{ i.block }}</td>
+                                <td>{{ i.incident_type }}</td>
+                                <td>{{ i.date }}</td>
+                                <td>{{ i.incident }}</td>
+                                <td>{{ i.neighborhood_name }}</td>
+                                <td>{{ i.police_grid }}</td>
+                                <td>{{ i.time }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" @click="showTable = !showTable">show/hide table</button>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="footer">
+        <p>Created by Brandon Henrickson, Salmaan Saiyed and Gwen Clark</p>
     </div>
 </body>
 
