@@ -335,10 +335,10 @@ function onMapChange(){
     app.mapNeighborhoods = [];
     for(var i in app.neighborhoods) {
         let bounds = leafletMap.getBounds();
-        let lat = app.neighborhoods[i][latitude];
-        let long = app.neighborhoods[i][longitude];
+        let lat = app.neighborhoods[i].latitude;
+        let long = app.neighborhoods[i].longitude;
         if (lat > bounds._southWest.lat && lat < bounds._northEast.lat && long > bounds._southWest.lng && long < bounds._northEast.lng) {
-            app.mapNeighborhoods.push(parseInt(n));
+            app.mapNeighborhoods.push(parseInt(i));
         }
     }
 }
