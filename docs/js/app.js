@@ -24,8 +24,7 @@ function init() {
             port: 8000,
             isPort: false,
             viewFilters: false,
-            limit: 10000,
-            showNotification: false,
+            show: false,
             notification: ""
         },
         methods: {
