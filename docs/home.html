@@ -19,8 +19,61 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script> <!-- Vue -->
     <script type="application/javascript" src="js/app.js"></script>
 </head>
+    <script type="text/javascript">
+        function Prompt() {
+            $("#dialog-form").dialog({
+                autoOpen: true,
+                modal: true,
+                width: "360px",
+                buttons: {
+                    "Ok": function() {
+                        var prompt_input = $("#prompt_input");
+                        Init(prompt_input.val());
+                        $(this).dialog("close");
+                    },
+                    "Cancel": function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
 
+        function Init(crime_api_url) {
+            console.log(crime_api_url);
+        }
+        document.body.onload = function() {
+            Prompt();
+};
+    </script>
 <body onload="init()">
+    <div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable ui-resizable" aria-describedby="dialog-form" aria-labelledby="ui-id-1" style="position: absolute; height: auto; width: 360px; top: 0%; left: 51%; z-index: 101;">
+        <div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle">
+            <span id="ui-id-1" class="ui-dialog-title">&nbsp;</span>
+            <button type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close" title="Close">
+                <span class="ui-button-icon ui-icon ui-icon-closethick"></span>
+                <span class="ui-button-icon-space"> </span>
+            </button>
+        </div>
+        <div id="dialog-form" class="ui-dialog-content ui-widget-content" style="color: white; width: auto; min-height: 19.053px; max-height: none; height: auto;">
+            <label for="name">URL for St. Paul Crime API:</label>
+            <input type="text" id="prompt_input" class="text ui-widget-content ui-corner-all" style="width: 320px;">
+        </div>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <div class="ui-dialog-buttonset">
+                <button type="button" class="ui-button ui-corner-all ui-widget">Ok</button>
+                <button type="button" class="ui-button ui-corner-all ui-widget">Cancel</button>
+            </div>
+        </div>
+        <div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div>
+        <div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div>
+        <div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div>
+        <div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div>
+        <div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div>
+        <div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div>
+        <div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div>
+        <div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div>
+    </div>
+    <div class="ui-widget-overlay ui-front" style="z-index: 100;"></div>
     <div class="topnav">
         <a href="/home.html">Home</a>
         <a href="/about.html">About</a>
