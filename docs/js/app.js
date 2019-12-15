@@ -167,8 +167,8 @@ function init() {
             changeCoordinates: function() {
                 leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
             },
-            getNeighborhoodName: function(neighborhoodNumber) {
-                return this.neighborhoods[neighborhoodNumber];
+            getNeighborhoodName: function(number) {
+                return this.neighborhoods[number].title;
             },
             getIncidentType: function(code) {
                 return this.codes[code];
@@ -306,8 +306,6 @@ function getAddress(){
                 app.latitude = data[0].lat;
                 app.longitude = data[0].lon;
                 leafletMap.panTo([app.latitude, app.longitude]);
-            } else {
-                alert("Address '"+ app.address +"' not found")
             }
         });
 }
