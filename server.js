@@ -8,7 +8,7 @@ var express = require('express')
 var sqlite3 = require('sqlite3')
 
 var db_filename = path.join(__dirname, 'db', 'stpaul_crime.sqlite3');
-var public_dir = path.join(__dirname, 'public');
+var public_dir = path.join(__dirname, 'docs');
 
 var app = express();
 var port = 8000;

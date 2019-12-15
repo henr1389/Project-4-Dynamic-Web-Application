@@ -15,7 +15,18 @@ function init() {
             mapNeighborhoods: [],
             nMarkers: [],
             iMarkers: [],
-            open: true,
+            dateStart: "2019-10-01",
+            dateEnd: "2019-10-31",
+            timeStart: "",
+            timeEnd: "",
+            incidentFilter: [],
+            neighborhoodFilter: [],
+            port: 8000,
+            isPort: false,
+            viewFilters: false,
+            limit: 10000,
+            showNotification: false,
+            notification: ""
         },
         methods: {
             getCrimeData: function() {
@@ -27,12 +38,12 @@ function init() {
                             var neighborhood_name;
                             var incident_type;
                             $.when(
-                                $.getJSON('http://localhost:8000/neighborhoods?id='+incident.neighborhood_number, (data) => {
-                                    neighborhood_name = data['N'+incident.neighborhood_number];
+                                $.getJSON('http://localhost:8000/neighborhoods?id=' + incident.neighborhood_number, (data) => {
+                                    neighborhood_name = data['N' + incident.neighborhood_number];
                                     incident.neighborhood_name = neighborhood_name;
                                 }),
-                                $.getJSON('http://localhost:8000/codes?code='+incident.code, (data) => {
-                                    incident_type = data['C'+incident.code];
+                                $.getJSON('http://localhost:8000/codes?code=' + incident.code, (data) => {
+                                    incident_type = data['C' + incident.code];
                                     incident.incident_type = incident_type;
                                 })
                             ).then(() => {
@@ -61,6 +72,31 @@ function init() {
                     if (lat > bounds._southWest.lat && long < bounds._northEast.lng && lat < bounds._northEast.lat && long > bounds._southWest.long) {
                         this.neighborhoods.push(parseInt(i));
                     }
+                }
+            },
+            removeIncidentMarkers: function(){
+                app.incidentMarkers.forEach(marker => {
+                    marker.remove();
+                });
+                alert('Incident markers removed');
+            },
+            crimeTypeBackground: function(code){
+                if (600 <= code && code <= 1436){
+                    return "background: #ffffaa;"
+                }else if(110 <= code && code <= 566){
+                    return "background: #ffaaaa;;"
+                }
+                else{
+                    return "background: #aaffaa;"
+                }
+            },
+            crimeTypeColor: function(code){
+                if(600 <= code && code <= 1436){
+                    return "color: #fff569;"
+                }else if(110 <= code && code <= 566){
+                    return "color: #ff0000;"
+                }else{
+                    return "color: #00ff00;"
                 }
             }
         }
@@ -161,9 +197,9 @@ function getCodes(){
 }
 
 function onMapChange(){
-    var latLong = leafletMap.getCenter();
-    app.mapLatitude = latLong.lat;
-    app.mapLongitude = latLong.lng;
+    var center = leafletMap.getCenter();
+    app.mapLatitude = center.lat;
+    app.mapLongitude =  center.lng;
 }
 
 let popup = L.popup();
