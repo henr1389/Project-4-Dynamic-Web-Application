@@ -140,6 +140,26 @@ function init() {
                         }
 }
             },
+            getNeighborhoodStats: function() {
+                var location = [[44.925349, -93.025231],[44.973, -93.025],[44.932094, -93.077872],[44.954, -93.060],[44.977, -93.065],[44.976433, -93.110282],[44.959821, -93.117495],[44.951, -93.126],[44.927, -93.126],[44.979, -93.155],[44.962082, -93.166604],[44.973181, -93.196334],[44.948, -93.174],[44.933, -93.167],[44.912, -93.177],[44.936, -93.136],[44.957989, -93.103815]];
+                var stats = new Array(17).fill(0);
+                $.getJSON('http://localhost:8000/incidents')
+                    .then(data => {
+                        for(var i in data){
+                            var incident = data[i];
+                            stats[incident.neighborhood_number-1]++;
+                        }
+                    })
+                for (var i in stats){
+                    $.getJSON('http://localhost:8000/neighborhoods?id=' + i+1, (data) => {
+                        neighborhood_name = data['N' + (i+1)];
+                        
+                        L.marker(location[i]).addTo(leafletMap)
+                            .bindPopup(neighborhood_name + '\n Crimes in this neighborhood:' + stats[i]).openPopup;
+                    })
+                    
+                }
+            },
             crimeColor: function(code){
                 if(600 <= code && code <= 1436){
                     return "color: #fff569";
@@ -208,7 +228,7 @@ function leafletMapInit(){
     leafletMap.on('click', onMapClick);
     leafletMap.on('move', onMapChange);
     leafletMap.on('zoom', onMapChange);
-
+/*
     L.marker([44.925349, -93.025231]).addTo(leafletMap)
         .bindPopup("Conway/Battlecreek/Highwood").openPopup();
     L.marker([44.973, -93.025]).addTo(leafletMap)
@@ -243,6 +263,8 @@ function leafletMapInit(){
         .bindPopup("Summit Hill").openPopup();
     L.marker([44.957989, -93.103815]).addTo(leafletMap)
         .bindPopup("Capitol River").openPopup();
+
+*/
     /* unused St.Paul neighborhoods (not present in crime database)
     L.marker([44.948, -93.190]).addTo(leafletMap)
         .bindPopup("Merriam Park").openPopup();
