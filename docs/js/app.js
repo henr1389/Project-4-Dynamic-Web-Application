@@ -68,7 +68,7 @@ function init() {
                         neighborhood_name = data['N' + (i+1)];
                         
                         L.marker(location[i]).addTo(leafletMap)
-                            .bindPopup(neighborhood_name + stats[i]).openPopup;
+                            .bindPopup(neighborhood_name + '\n Crimes in this neighborhood:' + stats[i]).openPopup;
                     })
                     
                 }
