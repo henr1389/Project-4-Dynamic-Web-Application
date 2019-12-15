@@ -1,7 +1,7 @@
+
 var app;
-
+var leafletMap;
 function init() {
-
     app = new Vue({
         el: "#app",
         data: {
@@ -11,21 +11,21 @@ function init() {
             neighborhoods: {},
             codes: {},
             showTable: true,
+            port: 8000,
+            isPort: false,
+            show: false,
+            notification: ""
             address: "",
             mapNeighborhoods: [],
             nMarkers: [],
             iMarkers: [],
-            dateStart: "2019-10-01",
-            dateEnd: "2019-10-31",
+            start: "2019-10-01",
+            end: "2019-10-31",
             timeStart: "",
             timeEnd: "",
             incidentFilter: [],
             neighborhoodFilter: [],
-            port: 8000,
-            isPort: false,
-            viewFilters: false,
-            show: false,
-            notification: ""
+
         },
         methods: {
             getCrimeData: function() {
@@ -53,6 +53,15 @@ function init() {
                         }
                     })
             },
+            crimeColor: function(code){
+                if(600 <= code && code <= 1436){
+                    return "color: #fff569;"
+                }else if(110 <= code && code <= 566){
+                    return "color: #ff0000;"
+                }else{
+                    return "color: #00ff00;"
+                }
+            }
             changeCoordinates: function() {
                 leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
             },
@@ -89,24 +98,15 @@ function init() {
                     return "background: #aaffaa;"
                 }
             },
-            crimeColor: function(code){
-                if(600 <= code && code <= 1436){
-                    return "color: #fff569;"
-                }else if(110 <= code && code <= 566){
-                    return "color: #ff0000;"
-                }else{
-                    return "color: #00ff00;"
-                }
-            }
+
         }
     });
 
     leafletMapInit();
-    getCodes();
-    getIncidents();
+    requestCodes();
+    requestIncidents();
 }
 
-var leafletMap;
 function leafletMapInit(){
     var latLong = [app.mapLatitude, app.mapLongitude]; // Latitude and longitude of St. Paul
     leafletMap = L.map('map', {minZoom: 11, maxZoom: 18, maxBounds: [[44.875822, -92.984848],[44.99564, -93.229122]], center: latLong, zoom: 12});
@@ -173,6 +173,8 @@ function leafletMapInit(){
     L.marker([44.950, -93.086]).addTo(leafletMap)
        .bindPopup("Lowertown").openPopup();
     */
+
+
     addPolygon();
 }
 function getAddress(){
@@ -188,7 +190,7 @@ function getAddress(){
         });
 }
 
-function getIncidents(){
+function requestIncidents(){
     var path = 'http://localhost:8000/incidents?start_date=2019-10-01&end_date=2019-10-31';
     $.getJSON(path)
         .then(data => {
@@ -196,7 +198,7 @@ function getIncidents(){
         });
 }
 
-function getCodes(){
+function requestCodes(){
     var path = 'http://localhost:8000/codes';
     $.getJSON(path)
         .then(data => {
@@ -210,6 +212,15 @@ function onMapChange(){
     var center = leafletMap.getCenter();
     app.mapLatitude = center.lat;
     app.mapLongitude =  center.lng;
+    app.mapNeighborhoods = [];
+    for(var i in app.neighborhoods) {
+        let bounds = map.getBounds();
+        let lat = app.neighborhoods[i].latitude;
+        let long = app.neighborhoods[i].longitude;
+        if (lat > bounds._southWest.lat && lat < bounds._northEast.lat && long > bounds._southWest.lng && long < bounds._northEast.lng) {
+            app.mapNeighborhoods.push(parseInt(n));
+        }
+    }
 }
 
 let popup = L.popup();
