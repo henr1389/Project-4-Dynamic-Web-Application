@@ -123,46 +123,56 @@ function leafletMapInit(){
     leafletMap.on('move', onMapChange);
     leafletMap.on('zoom', onMapChange);
 
-    L.marker([44.948, -93.190]).addTo(leafletMap)
-        .bindPopup("Merriam Park").openPopup();
-    L.marker([44.968, -93.198]).addTo(leafletMap)
-        .bindPopup("Saint Anothony Park").openPopup();
-    L.marker([44.933, -93.167]).addTo(leafletMap)
-        .bindPopup("Macalester-Groveland").openPopup();
+    L.marker([44.925349, -93.025231]).addTo(leafletMap)
+        .bindPopup("Conway/Battlecreek/Highwood").openPopup();
+    L.marker([44.973, -93.025]).addTo(leafletMap)
+        .bindPopup("Greater East Side").openPopup();
+    L.marker([44.932094, -93.077872]).addTo(leafletMap)
+        .bindPopup("West Side").openPopup();
+    L.marker([44.954, -93.060]).addTo(leafletMap)
+        .bindPopup("Dayton's Bluff").openPopup();
+    L.marker([44.977, -93.065]).addTo(leafletMap)
+        .bindPopup("Payne/Phalen").openPopup();   
+    L.marker([44.976433, -93.110282]).addTo(leafletMap)
+        .bindPopup("North End").openPopup();    
+    L.marker([44.959821, -93.117495]).addTo(leafletMap)
+        .bindPopup("Thomas/Dale(Frogtown)").openPopup();
+    L.marker([44.951, -93.126]).addTo(leafletMap)
+        .bindPopup("Summit/University").openPopup();
+    L.marker([44.927, -93.126]).addTo(leafletMap)
+        .bindPopup("West Seventh").openPopup();
+    L.marker([44.979, -93.155]).addTo(leafletMap)
+        .bindPopup("Como").openPopup();
+    L.marker([44.962082, -93.166604]).addTo(leafletMap)
+        .bindPopup("Hamline/Midway").openPopup();
+    L.marker([44.973181, -93.196334]).addTo(leafletMap)
+        .bindPopup("St. Anthony").openPopup();
     L.marker([44.948, -93.174]).addTo(leafletMap)
         .bindPopup("Union Park").openPopup();
+    L.marker([44.933, -93.167]).addTo(leafletMap)
+        .bindPopup("Macalester-Groveland").openPopup();
+    L.marker([44.912, -93.177]).addTo(leafletMap)
+        .bindPopup("Highland").openPopup();
+    L.marker([44.936, -93.136]).addTo(leafletMap)
+        .bindPopup("Summit Hill").openPopup();
+    L.marker([44.957989, -93.103815]).addTo(leafletMap)
+        .bindPopup("Capitol River").openPopup();
+    /* unused St.Paul neighborhoods (not present in crime database)
+    L.marker([44.948, -93.190]).addTo(leafletMap)
+        .bindPopup("Merriam Park").openPopup();
     L.marker([44.948, -93.190]).addTo(leafletMap)
         .bindPopup("Merriam Park West").openPopup();
     L.marker([44.947, -93.116]).addTo(leafletMap)
         .bindPopup("Cathedral Hill").openPopup();
-    L.marker([44.936, -93.136]).addTo(leafletMap)
-        .bindPopup("Summit Hill").openPopup();
-    L.marker([44.963, -93.167]).addTo(leafletMap)
-        .bindPopup("Midway").openPopup();
-    L.marker([44.951, -93.126]).addTo(leafletMap)
-        .bindPopup("Summit - University").openPopup();
-    L.marker([44.954, -93.060]).addTo(leafletMap)
-        .bindPopup("Dayton's Bluff").openPopup();
-    L.marker([44.977, -93.065]).addTo(leafletMap)
-        .bindPopup("Payne - Phalen").openPopup();   
-    L.marker([44.927, -93.126]).addTo(leafletMap)
-        .bindPopup("West Seventh").openPopup();
-    L.marker([44.979, -93.155]).addTo(leafletMap)
-       .bindPopup("Como").openPopup();
     L.marker([44.946, -93.164]).addTo(leafletMap)
         .bindPopup("Snelling Hamline").openPopup();   
-    L.marker([44.973, -93.025]).addTo(leafletMap)
-        .bindPopup("Greater East Side").openPopup();
     L.marker([44.959, -93.121]).addTo(leafletMap)
        .bindPopup("Thomas - Dale").openPopup();
-    L.marker([44.943, -93.025]).addTo(leafletMap)
-        .bindPopup("Battle Creek").openPopup();   
     L.marker([44.945, -93.150]).addTo(leafletMap)
         .bindPopup("Lexington - Hamline").openPopup();
     L.marker([44.950, -93.086]).addTo(leafletMap)
        .bindPopup("Lowertown").openPopup();
-    L.marker([44.912, -93.177]).addTo(leafletMap)
-       .bindPopup("Highland Park").openPopup();
+    */
     addPolygon();
 }
 function getAddress(){
