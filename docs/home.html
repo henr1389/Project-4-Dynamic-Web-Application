@@ -55,7 +55,7 @@
                             <td>Time</td>
                         </thead>
                         <tbody>
-                           <tr v-for="i in incidents" v-if="visible(incident.neighborhood_number)" @click="getIncidentMarkers(i.block, i.date, i.time, i.incident, i.code);" :style="crimeBackgroundColor(i.code)">
+                           <tr v-for="i in incidents" @click="getIncidentMarkers(i.block, i.date, i.time, i.incident, i.code);" :style="crimeBackgroundColor(i.code)">
                                     <td>{{ i.block }}</td>
                                     <td>{{ getIncidentType(i.code) }}</td>
                                     <td>{{ i.date }}</td>
