@@ -74,13 +74,13 @@ function init() {
                     }
                 }
             },
-            removeIncidentMarkers: function(){
+            removeMarkers: function(){
                 app.incidentMarkers.forEach(marker => {
                     marker.remove();
                 });
                 alert('Incident markers removed');
             },
-            crimeTypeBackground: function(code){
+            crimeBackgroundColor: function(code){
                 if (600 <= code && code <= 1436){
                     return "background: #ffffaa;"
                 }else if(110 <= code && code <= 566){
@@ -90,7 +90,7 @@ function init() {
                     return "background: #aaffaa;"
                 }
             },
-            crimeTypeColor: function(code){
+            crimeColor: function(code){
                 if(600 <= code && code <= 1436){
                     return "color: #fff569;"
                 }else if(110 <= code && code <= 566){
