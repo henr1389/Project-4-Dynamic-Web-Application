@@ -282,8 +282,7 @@ function leafletMapInit(){
 }
 
 function getIncidentMarkers(address, date, time, incident, code){
-    address = address.replace('X', '0');
-    $.getJSON('https://nominatim.openstreetmap.org/search?format=json&country=United States&state=MN&city=St. Paul&street=' + address)
+    $.getJSON('https://nominatim.openstreetmap.org/search?format=json&country=United States&state=MN&city=St. Paul&street=' + app.address)
         .then(data => {
             if(data.length > 0) {
                 var latitude = data[0].lat;
@@ -305,6 +304,9 @@ function getAddress(){
                 app.latitude = data[0].lat;
                 app.longitude = data[0].lon;
                 leafletMap.panTo([app.latitude, app.longitude]);
+            }
+            else{
+                alert("the address you typed does not exist");
             }
         });
 }
