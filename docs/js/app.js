@@ -199,6 +199,23 @@ function leafletMapInit(){
     addPolygon();
 }
 
+function getIncidentMarkers(address, date, time, incident, code){
+    address = address.replace('X', '0');
+    .getJSON('https://nominatim.openstreetmap.org/search?format=json&country=United States&state=MN&city=St. Paul&street=' + address)
+        .then(data => {
+            if(data.length > 0) {
+                var latitude = data[0].lat;
+                var longitude = data[0].lon;
+                // Create a popup with date, time, incident, and delete button when hovering over that marker
+                var popup = L.popup({
+                    closeOnClick: false, 
+                    autoClose: false
+                }).setContent([address, date +'/'+ time, incident].join('<br/>'));
+                var marker = L.marker([latitude, longitude], {title: address}).bindPopup(popup).addTo(map);
+                app.iMarkers.push(marker);
+            }
+        });
+}
 
 function getAddress(){
     $.getJSON('https://nominatim.openstreetmap.org/search?format=json&q=saint paul minnesota' + app.address)
@@ -238,8 +255,8 @@ function onMapChange(){
     app.mapNeighborhoods = [];
     for(var i in app.neighborhoods) {
         let bounds = map.getBounds();
-        let lat = app.neighborhoods[i].latitude;
-        let long = app.neighborhoods[i].longitude;
+        let lat = app.neighborhoods[i][latitude];
+        let long = app.neighborhoods[i][longitude];
         if (lat > bounds._southWest.lat && lat < bounds._northEast.lat && long > bounds._southWest.lng && long < bounds._northEast.lng) {
             app.mapNeighborhoods.push(parseInt(n));
         }
