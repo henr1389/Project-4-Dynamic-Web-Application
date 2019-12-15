@@ -8,7 +8,119 @@ function init() {
             mapLatitude: 44.953,
             mapLongitude: -93.09,
             incidents: {},
-            neighborhoods: {
+            neighborhoods: {},
+            codes: {},
+            showTable: true,
+            port: 8000,
+            isPort: false,
+            show: false,
+            notification: "",
+            address: "",
+            mapNeighborhoods: [],
+            nMarkers: [],
+            iMarkers: [],
+            start: "2019-10-01",
+            end: "2019-10-31",
+            timeStart: "",
+            timeEnd: "",
+            incidentFilter: [],
+            neighborhoodFilter: [],
+
+        },
+        methods: {
+            getCrimeData: function() {
+                var incidents = [];
+                $.getJSON('http://localhost:8000/incidents?limit=10&start_date=2019-10-01&end_date=2019-10-31')
+                    .then(data => {
+                        for(var i in data){
+                            var incident = data[i];
+                            var neighborhood_name;
+                            var incident_type;
+                            $.when(
+                                $.getJSON('http://localhost:8000/neighborhoods?id=' + incident.neighborhood_number, (data) => {
+                                    neighborhood_name = data['N' + incident.neighborhood_number];
+                                    incident.neighborhood_name = neighborhood_name;
+                                }),
+                                $.getJSON('http://localhost:8000/codes?code=' + incident.code, (data) => {
+                                    incident_type = data['C' + incident.code];
+                                    incident.incident_type = incident_type;
+                                })
+                            ).then(() => {
+                                incidents.push(incident);
+                                this.incidents = incidents;
+                                console.log(incidents);
+                            })
+                        }
+                    })
+            },
+            getNeighborhoodStats: function(neighborhood) {
+                var location = neighborhood;
+                var stats = new Array(17).fill(0);
+                $.getJSON('http://localhost:8000/incidents')
+                    .then(data => {
+                        for(var i in data){
+                            var incident = data[i];
+                            stats[incident.neighborhood_number-1]++;
+                        }
+                    })
+                for (var i in stats){
+                    $.getJSON('http://localhost:8000/neighborhoods?id=' + i+1, (data) => {
+                        neighborhood_name = data['N' + (i+1)];
+                        
+                        L.marker(location[i]).addTo(leafletMap)
+                            .bindPopup(neighborhood_name + '\n Crimes in this neighborhood:' + stats[i]).openPopup;
+                    })
+                    
+                }
+            },
+            crimeColor: function(code){
+                if(600 <= code && code <= 1436){
+                    return "color: #fff569";
+                }else if(110 <= code && code <= 566){
+                    return "color: #ff0000";
+                }else{
+                    return "color: #00ff00";
+                }
+            },
+            changeCoordinates: function() {
+                leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
+            },
+            getNeighborhoodName: function(number) {
+                return this.neighborhoods[number].name;
+            },
+            getIncidentType: function(code) {
+                return this.codes[code];
+            },
+            updateNeighborhoods: function(){
+                this.mapNeighborhoods = [];
+                for(var i in this.neighborhoods) {
+                    var lat = this.neighborhoods[i].latitude;
+                    var long = this.neighborhoods[i].longitude;
+                    var boundary = map.getBounds();
+                    if (lat > bounds._southWest.lat && long < bounds._northEast.lng && lat < bounds._northEast.lat && long > bounds._southWest.long) {
+                        this.neighborhoods.push(parseInt(i));
+                    }
+                }
+            },
+            removeMarkers: function(){
+                app.incidentMarkers.forEach(marker => {
+                    marker.remove();
+                });
+            },
+            crimeBackgroundColor: function(code){
+                if (600 <= code && code <= 1436){
+                    return "background: #ffffaa";
+                }else if(110 <= code && code <= 566){
+                    return "background: #ffaaaa";
+                }
+                else{
+                    return "background: #aaffaa";
+                }
+            },
+
+        }
+    });
+    app.neighborhoods = {
                 1:{
                     title: "Conway/Battlecreek/Highwood",
                     latitude: 44.925349, 
@@ -90,119 +202,7 @@ function init() {
                     longitude: -93.136
 
                 }
-            },
-            codes: {},
-            showTable: true,
-            port: 8000,
-            isPort: false,
-            show: false,
-            notification: "",
-            address: "",
-            mapNeighborhoods: [],
-            nMarkers: [],
-            iMarkers: [],
-            start: "2019-10-01",
-            end: "2019-10-31",
-            timeStart: "",
-            timeEnd: "",
-            incidentFilter: [],
-            neighborhoodFilter: [],
-
-        },
-        methods: {
-            getCrimeData: function() {
-                var incidents = [];
-                $.getJSON('http://localhost:8000/incidents?limit=10&start_date=2019-10-01&end_date=2019-10-31')
-                    .then(data => {
-                        for(var i in data){
-                            var incident = data[i];
-                            var neighborhood_name;
-                            var incident_type;
-                            $.when(
-                                $.getJSON('http://localhost:8000/neighborhoods?id=' + incident.neighborhood_number, (data) => {
-                                    neighborhood_name = data['N' + incident.neighborhood_number];
-                                    incident.neighborhood_name = neighborhood_name;
-                                }),
-                                $.getJSON('http://localhost:8000/codes?code=' + incident.code, (data) => {
-                                    incident_type = data['C' + incident.code];
-                                    incident.incident_type = incident_type;
-                                })
-                            ).then(() => {
-                                incidents.push(incident);
-                                this.incidents = incidents;
-                                console.log(incidents);
-                            })
-                        }
-                    })
-            },
-            getNeighborhoodStats: function(neighborhood) {
-                var location = neighborhood;
-                var stats = new Array(17).fill(0);
-                $.getJSON('http://localhost:8000/incidents')
-                    .then(data => {
-                        for(var i in data){
-                            var incident = data[i];
-                            stats[incident.neighborhood_number-1]++;
-                        }
-                    })
-                for (var i in stats){
-                    $.getJSON('http://localhost:8000/neighborhoods?id=' + i+1, (data) => {
-                        neighborhood_name = data['N' + (i+1)];
-                        
-                        L.marker(location[i]).addTo(leafletMap)
-                            .bindPopup(neighborhood_name + '\n Crimes in this neighborhood:' + stats[i]).openPopup;
-                    })
-                    
-                }
-            },
-            crimeColor: function(code){
-                if(600 <= code && code <= 1436){
-                    return "color: #fff569";
-                }else if(110 <= code && code <= 566){
-                    return "color: #ff0000";
-                }else{
-                    return "color: #00ff00";
-                }
-            },
-            changeCoordinates: function() {
-                leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
-            },
-            getNeighborhoodName: function(number) {
-                return this.neighborhoods[number].title;
-            },
-            getIncidentType: function(code) {
-                return this.codes[code];
-            },
-            updateNeighborhoods: function(){
-                this.mapNeighborhoods = [];
-                for(var i in this.neighborhoods) {
-                    var lat = this.neighborhoods[i].latitude;
-                    var long = this.neighborhoods[i].longitude;
-                    var boundary = map.getBounds();
-                    if (lat > bounds._southWest.lat && long < bounds._northEast.lng && lat < bounds._northEast.lat && long > bounds._southWest.long) {
-                        this.neighborhoods.push(parseInt(i));
-                    }
-                }
-            },
-            removeMarkers: function(){
-                app.incidentMarkers.forEach(marker => {
-                    marker.remove();
-                });
-            },
-            crimeBackgroundColor: function(code){
-                if (600 <= code && code <= 1436){
-                    return "background: #ffffaa";
-                }else if(110 <= code && code <= 566){
-                    return "background: #ffaaaa";
-                }
-                else{
-                    return "background: #aaffaa";
-                }
-            },
-
-        }
-    });
-
+            }
     leafletMapInit();
     requestCodes();
     requestIncidents();
