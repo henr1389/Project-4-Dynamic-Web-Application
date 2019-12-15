@@ -11,10 +11,6 @@ function init() {
             neighborhoods: {},
             codes: {},
             showTable: true,
-            port: 8000,
-            isPort: false,
-            show: false,
-            notification: "",
             address: "",
             mapNeighborhoods: [],
             nMarkers: [],
@@ -23,8 +19,8 @@ function init() {
             end: "2019-10-31",
             timeStart: "",
             timeEnd: "",
-            incidentFilter: [],
-            neighborhoodFilter: [],
+            iFilter: [],
+            nFilter: [],
 
         },
         methods: {
