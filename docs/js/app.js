@@ -288,7 +288,6 @@ function getIncidentMarkers(address, date, time, incident, code){
             if(data.length > 0) {
                 var latitude = data[0].lat;
                 var longitude = data[0].lon;
-                // Create a popup with date, time, incident, and delete button when hovering over that marker
                 var popup = L.popup({
                     closeOnClick: false, 
                     autoClose: false
