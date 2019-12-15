@@ -8,7 +8,89 @@ function init() {
             mapLatitude: 44.953,
             mapLongitude: -93.09,
             incidents: {},
-            neighborhoods: [[44.925349, -93.025231],[44.973, -93.025],[44.932094, -93.077872],[44.954, -93.060],[44.977, -93.065],[44.976433, -93.110282],[44.959821, -93.117495],[44.951, -93.126],[44.927, -93.126],[44.979, -93.155],[44.962082, -93.166604],[44.973181, -93.196334],[44.948, -93.174],[44.933, -93.167],[44.912, -93.177],[44.936, -93.136],[44.957989, -93.103815]],
+            neighborhoods: {
+                1:{
+                    title: "Conway/Battlecreek/Highwood",
+                    latitude: 44.925349, 
+                    longitude: -93.025231
+                },
+                2:{
+                    title: "Greater East Side",
+                    latitude: 44.973, 
+                    longitude: -93.025
+                },
+                3:{  
+                    title: "West Side",
+                    latitude: 44.932094,
+                    longitude: -93.077872
+                },
+                4:{
+                    title: "Dayton's Bluff",
+                    latitude: 44.954, 
+                    longitude: -93.060
+                },
+                5:{
+                    title: "North End",
+                    latitude: 44.977,
+                    longitude: -93.065
+                },
+                6:{
+                    title: "Thomas/Dale(Frogtown)",
+                    latitude: 44.976433, 
+                    longitude: -93.110282
+                },
+                7:{
+                    title: "Summit/University",
+                    latitude: 44.959821,
+                    longitude: -93.117495
+                },
+                8:{
+                    title: "West Seventh",
+                    latitude: 44.951, 
+                    longitude: -93.126
+                },
+                9:{
+                    title: "Como",
+                    latitude: 44.927, 
+                    longitude: 93.126
+                },
+                10:{
+                    title: "Hamline/Midway",
+                    latitude: 44.979, 
+                    longitude: -93.155
+                },
+                11:{
+                    title: "St. Anthony",
+                    latitude: 44.962082, 
+                    longitude: -93.166604
+                },
+                12:{
+                    title: "Union Park",
+                    latitude: 44.973181, 
+                    longitude: -93.196334
+                },
+                13:{
+                    title: "Macalester-Groveland",
+                    latitude: 44.948, 
+                    longitude: -93.174
+                },
+                14:{
+                    title: "Highland",
+                    latitude: 44.933, 
+                    longitude: -93.167
+                },
+                15:{
+                    title: "Summit Hill",
+                    latitude: 44.912,
+                    longitude: -93.177
+                },
+                16:{
+                    title: "Capitol River",
+                    latitude: 44.936, 
+                    longitude: -93.136
+
+                }
+            },
             codes: {},
             showTable: true,
             port: 8000,
@@ -86,7 +168,7 @@ function init() {
                 leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
             },
             getNeighborhoodName: function(neighborhoodNumber) {
-                return this.neighborhoods[neighborhoodNumber].name;
+                return this.neighborhoods[neighborhoodNumber];
             },
             getIncidentType: function(code) {
                 return this.codes[code];
