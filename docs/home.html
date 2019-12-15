@@ -68,6 +68,14 @@
                     </table>
                     <button type="button" @click="showTable = !showTable">show/hide table</button>
                 </div>
+                <div id="table-legend">
+                    <span>Crime type legend:</span>
+                    <span class="legend" style="background:#ffaaaa">Violent</span>
+                    <span class="legend" style="background:#ffffaa">Property</span>
+                    <span class="legend" style="background:#aaffaa">Other</span>
+                    <span>Click an incident to mark it on map</span>
+                    <button type="button" @click="removeMarkers">Remove all markers</button>
+                </div>
             </div>
         </div>
     </div>

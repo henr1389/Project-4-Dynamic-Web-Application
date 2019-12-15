@@ -14,7 +14,7 @@ function init() {
             port: 8000,
             isPort: false,
             show: false,
-            notification: ""
+            notification: "",
             address: "",
             mapNeighborhoods: [],
             nMarkers: [],
@@ -52,16 +52,103 @@ function init() {
                             })
                         }
                     })
+                    app.neighborhoods = {
+                        1: {
+                            name: "Conway/Battlecreek/Highwood",
+                            latitude: 44.956758,
+                            longitude: -93.025231
+                        },
+                        2: {
+                            name: "Greater East Side",
+                            latitude: 44.973, 
+                            longitude: -93.025
+                        },
+                        3: {
+                            name: "West Side",
+                            latitude: 44.932094, 
+                            longitude: -93.077872
+                        },
+                        4: {
+                            name: "Dayton's Bluff",
+                            latitude: 44.957164,
+                            longitude: -93.057100
+                        },
+                        5: {
+                            name: "Payne/Phalen",
+                            latitude: 44.978208,
+                            longitude: -93.069673
+                        },
+                        6: {
+                            name: "North End",
+                            latitude: 44.977405,
+                            longitude: -93.110969
+                        },
+                        7: {
+                            name: "Thomas/Dale(Frogtown)",
+                            latitude: 44.960265,
+                            longitude: -93.118686
+                        },
+                        8: {
+                            name: "Summit/University",
+                            latitude: 44.948581,
+                            longitude: -93.128205
+                        },
+                        9: {
+                            name: "West Seventh",
+                            latitude: 44.931735,
+                            longitude: -93.119224
+                        },
+                        10: {
+                            name: "Como",
+                            latitude: 44.982860,
+                            longitude: -93.150844
+                        },
+                        11: {
+                            name: "Hamline/Midway",
+                            latitude: 44.962891,
+                            longitude: -93.167436
+                        },
+                        12: {
+                            name: "St. Anthony",
+                            latitude: 44.973546,
+                            longitude: -93.195991
+                        },
+                        13: {
+                            name: "Union Park",
+                            latitude: 44.948401,
+                            longitude: -93.174050
+                        },
+                        14: {
+                            name: "Macalester-Groveland",
+                            latitude: 44.934301,
+                            longitude: -93.175363
+                        },
+                        15: {
+                            name: "Highland",
+                            latitude: 44.911489,
+                            longitude: -93.172075
+                        },
+                        16: {
+                            name: "Summit Hill",
+                            latitude: 44.937493,
+                            longitude: -93.136353
+                        },
+                        17: {
+                            name: "Capitol River",
+                            latitude: 44.950459,
+                            longitude: -93.096462
+                        }
+}
             },
             crimeColor: function(code){
                 if(600 <= code && code <= 1436){
-                    return "color: #fff569;"
+                    return "color: #fff569";
                 }else if(110 <= code && code <= 566){
-                    return "color: #ff0000;"
+                    return "color: #ff0000";
                 }else{
-                    return "color: #00ff00;"
+                    return "color: #00ff00";
                 }
-            }
+            },
             changeCoordinates: function() {
                 leafletMap.panTo([this.mapLatitude, this.mapLongitude]);
             },
@@ -86,16 +173,15 @@ function init() {
                 app.incidentMarkers.forEach(marker => {
                     marker.remove();
                 });
-                alert('Incident markers removed');
             },
             crimeBackgroundColor: function(code){
                 if (600 <= code && code <= 1436){
-                    return "background: #ffffaa;"
+                    return "background: #ffffaa";
                 }else if(110 <= code && code <= 566){
-                    return "background: #ffaaaa;;"
+                    return "background: #ffaaaa";
                 }
                 else{
-                    return "background: #aaffaa;"
+                    return "background: #aaffaa";
                 }
             },
 
@@ -177,6 +263,8 @@ function leafletMapInit(){
 
     addPolygon();
 }
+
+
 function getAddress(){
     $.getJSON('https://nominatim.openstreetmap.org/search?format=json&q=saint paul minnesota' + app.address)
         .then(data => {
