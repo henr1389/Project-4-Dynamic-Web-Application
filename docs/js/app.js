@@ -21,23 +21,24 @@ function init() {
             timeEnd: "",
             iFilter: [],
             nFilter: [],
+			serverURL: "http://localhost:8000/"
 
         },
         methods: {
             getCrimeData: function() {
                 var incidents = [];
-                $.getJSON('http://localhost:8000/incidents?limit=10&start_date=2019-10-01&end_date=2019-10-31')
+                $.getJSON(serverURL + 'incidents?limit=10&start_date=2019-10-01&end_date=2019-10-31')
                     .then(data => {
                         for(var i in data){
                             var incident = data[i];
                             var neighborhood_name;
                             var incident_type;
                             $.when(
-                                $.getJSON('http://localhost:8000/neighborhoods?id=' + incident.neighborhood_number, (data) => {
+                                $.getJSON(serverURL + 'neighborhoods?id=' + incident.neighborhood_number, (data) => {
                                     neighborhood_name = data['N' + incident.neighborhood_number];
                                     incident.neighborhood_name = neighborhood_name;
                                 }),
-                                $.getJSON('http://localhost:8000/codes?code=' + incident.code, (data) => {
+                                $.getJSON(serverURL + 'codes?code=' + incident.code, (data) => {
                                     incident_type = data['C' + incident.code];
                                     incident.incident_type = incident_type;
                                 })
@@ -52,7 +53,7 @@ function init() {
             getNeighborhoodStats: function(neighborhood) {
                 var location = neighborhood;
                 var stats = new Array(17).fill(0);
-                $.getJSON('http://localhost:8000/incidents')
+                $.getJSON(serverURL + 'incidents')
                     .then(data => {
                         for(var i in data){
                             var incident = data[i];
@@ -60,7 +61,7 @@ function init() {
                         }
                     })
                 for (var i in stats){
-                    $.getJSON('http://localhost:8000/neighborhoods?id=' + i+1, (data) => {
+                    $.getJSON(serverURL + 'neighborhoods?id=' + i+1, (data) => {
                         neighborhood_name = data['N' + (i+1)];
                         
                         L.marker(location[i]).addTo(leafletMap)
@@ -308,7 +309,7 @@ function getAddress(){
 }
 
 function requestIncidents(){
-    var path = 'http://localhost:8000/incidents?start_date=2019-10-01&end_date=2019-10-31';
+    var path = serverURL + 'incidents?start_date=2019-10-01&end_date=2019-10-31';
     $.getJSON(path)
         .then(data => {
             app.incidents = data;
@@ -316,7 +317,7 @@ function requestIncidents(){
 }
 
 function requestCodes(){
-    var path = 'http://localhost:8000/codes';
+    var path = serverURL + 'codes';
     $.getJSON(path)
         .then(data => {
             for(var i in data){
