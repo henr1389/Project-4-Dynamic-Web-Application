@@ -12,6 +12,14 @@ html, body{
   object-fit: fill;
 }
 
+tbody, thead tr { display: block; }
+
+tbody {
+    height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 #map{
     width: 50%;
     height: 75%;
