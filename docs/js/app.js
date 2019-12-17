@@ -21,7 +21,7 @@ function init() {
             timeEnd: "",
             iFilter: [],
             nFilter: [],
-			serverURL: "http://localhost:8000/"
+			serverURL: "http://cisc_dean.stthomas.edu:8046"
 
         },
         methods: {
